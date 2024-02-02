@@ -1,15 +1,16 @@
 name: Checkout
 
 on:
-  push:
+  [push]
 
 jobs:
   build:
-    strategy:
-        matrix:
-          os: [windows-latest, ubuntu-latest, macOS-latest]
-          checkout: [actions/checkout@v2, actions/checkout@v3, actions/checkout@v4]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+
     steps:
       - name: checkout
-        uses: ${{ matrix.checkout }}
+        uses: actions/checkout@v4
+      - name: build and test
+        run: |
+          npm install
+          npm test
